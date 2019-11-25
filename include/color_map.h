@@ -1,7 +1,7 @@
-// ---------------------------------------------------------------------------
-//
-//
-// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------
+// GFractal Project
+// Graham Harper
+// ---------------------------------------------------------------------
 
 #ifndef FRAC_colormap_h
 #define FRAC_colormap_h
@@ -73,28 +73,59 @@ enum InterpolationType
  * The Color class stores RGB information and offers an interface for
  */
 
+template <typename T>
 class Color
 {
 public:
+
+  /**
+   * Default constructor. Initializes red, green, and blue to 0.
+   */
   Color()
     : r(0),
       g(0),
       b(0) {}
 
-  Color(const unsigned int red,
-        const unsigned int green,
-        const unsigned int blue)
-    : r(red),
-      g(green),
-      b(blue) {}
+  /**
+   * Constructor for a color given red, green, and blue.
+   * If any input is over 255, it is rounded down to 255.
+   * @param red
+   * @param green
+   * @param blue
+   */
+  Color(const T red,
+        const T green,
+        const T blue)
+    : r((red>255) ? 255 : red),
+      g((green>255) ? 255 : green),
+      b((blue>255) ? 255 : blue)
+  {}
 
-  unsigned int red() const { return r; }
-  unsigned int green() const { return g; }
-  unsigned int blue() const { return b; }
+  /**
+   * Getter for the color red.
+   * @return
+   */
+  T red() const { return r; }
+
+  /**
+   * Getter for the color green.
+   * @return
+   */
+  T green() const { return g; }
+
+  /**
+   * Getter for the color blue.
+   * @return
+   */
+  T blue() const { return b; }
 
 
-
-  Color& operator+=(const Color& rhs)
+  /**
+   * Add two colors. Anything that adds over 255 is rounded down.
+   * @param rhs
+   * @return
+   */
+  Color<T>& operator+=(const Color<T>& rhs)
   {
     r = (r+rhs.red()   < 255 ? r+rhs.red()   : 255);
     g = (g+rhs.green() < 255 ? g+rhs.green() : 255);
@@ -102,15 +133,24 @@ public:
     return *this;
   }
 
-  friend Color operator+(Color lhs,
-                         const Color& rhs)
+  /**
+   * Add two colors componentwise.
+   * @param lhs
+   * @param rhs
+   * @return
+   */
+  friend Color<T> operator+(Color<T> lhs,
+                            const Color<T>& rhs)
   {
     lhs += rhs;
     return lhs;
   }
 
-  friend Color operator*(Color lhs,
-                         const double a)
+  /**
+   * Multiply a color by a double.
+   */
+  friend Color<T> operator*(Color<T> lhs,
+                            const double a)
   {
     lhs.r = (lhs.red()*a     < 255 ? lhs.red()*a : 255);
     lhs.g = (lhs.green()*a < 255 ? lhs.green()*a : 255);
@@ -118,12 +158,23 @@ public:
     return lhs;
   }
 
-  std::ostream& operator<<(std::ostream& out);
+  //std::ostream& operator<<(std::ostream& out);
 
 
 private:
+  /**
+   * The value of red for this color.
+   */
   unsigned int r;
+
+  /**
+   * The value of green for this color.
+   */
   unsigned int g;
+
+  /**
+   * The value of blue for this color.
+   */
   unsigned int b;
 };
 
@@ -138,38 +189,103 @@ private:
  * provided. It requires at least two colors in order to operate correctly.
  */
 
+template <typename T>
 class ColorMap
 {
 public:
+  /**
+   * Default constructor. Uses a grayscale scheme and linear interpolation.
+   */
   ColorMap()
-    : colors(),
+    : colors({Color<T>(0,0,0), Color<T>(255,255,255)}),
       interpolation_type(InterpolationType::interpolation_linear) {}
-  ColorMap(const std::vector<Color> &in_colors,
+
+  /**
+   * Constructor given colors and interpolation type.
+   * @param in_colors
+   * @param in_interpolation_type
+   */
+  ColorMap(const std::vector<Color<T>> &in_colors,
            const InterpolationType in_interpolation_type)
     : colors(in_colors),
       interpolation_type(in_interpolation_type) {}
 
-  void addColor(Color &color) { colors.emplace_back(color); }
+  /**
+   * Add a color to the ColorMap.
+   * @param color
+   */
+  void addColor(Color<T> &color) { colors.emplace_back(color); }
+
+  /**
+   * Returns the number of colors in the ColorMap.
+   * @return
+   */
   unsigned int size() const { return colors.size(); }
+
+  /**
+   * Given a list of iterations its and a maximum maxits, compute
+   * colors r,g,b corresponding to the iterations.
+   * @param its
+   * @param maxits
+   * @param r
+   * @param g
+   * @param b
+   */
   void fillRGB(const std::vector<int> &its,
                const int maxits,
-               std::vector<int> &r,
-               std::vector<int> &g,
-               std::vector<int> &b) const;
+               std::vector<T> &r,
+               std::vector<T> &g,
+               std::vector<T> &b) const;
 //  unsigned int red(unsigned int its, unsigned int maxits) const;
 //  unsigned int green(unsigned int its, unsigned int maxits) const;
 //  unsigned int blue(unsigned int its, unsigned int maxits) const;
 
 private:
-  std::vector<Color> colors;
+  /**
+   * Stores the list of colors that define the ColorMap.
+   */
+  std::vector<Color<T>> colors;
+
+  /**
+   * Stores the location of each color in the map for interpolation purposes.
+   * Each value should be between 0 and 1. (not yet implemented)
+   */
+  //std::vector<double> color_location;
+
+  /**
+   * Stores the interpolation type for the ColorMap.
+   */
   InterpolationType interpolation_type;
 
-  static double
-  interpolate_linear(double a, double b, double t);
+  /**
+   * Interpolate linearly on the interval [0,1].
+   * @param a The height of the left endpoint.
+   * @param b The height of the right endpoint.
+   * @param t The position to interpolate at.
+   * @return
+   */
+  static T
+  interpolate_linear(T a, T b, T t);
 
-  static double
-  interpolate_smoothstep(double a, double b, double t);
+
+  /**
+   * Interpolate using the smoothstep on the interval [0,1].
+   * @param a The height of the left endpoint.
+   * @param b The height of the right endpoint.
+   * @param t The position to interpolate at.
+   * @return
+   */
+  static T
+  interpolate_smoothstep(T a, T b, T t);
 };
 
+// Colors may be stored as unsigned ints or doubles.
+// Doubles are easier for performing operations on colors.
+// Unsigned ints are easier for outputting images.
+
+template class Color<unsigned int>;
+template class Color<double>;
+template class ColorMap<unsigned int>;
+template class ColorMap<double>;
 
 #endif

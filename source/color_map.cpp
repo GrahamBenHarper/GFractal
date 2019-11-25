@@ -1,16 +1,24 @@
+// ---------------------------------------------------------------------
+// GFractal Project
+// Graham Harper
+// ---------------------------------------------------------------------
 #include "gfractal/include/color_map.h"
 
-std::ostream& operator<<(std::ostream& out, const Color& c)
+template <typename T>
+std::ostream& operator<<(std::ostream& out, const Color<T>& c)
 {
    return out << "(" << c.red() << "," << c.green() << "," << c.blue() << ")" ;
 }
 
+
+
+template <typename T>
 void
-ColorMap::fillRGB(const std::vector<int> &its,
+ColorMap<T>::fillRGB(const std::vector<int> &its,
                   const int maxits,
-                  std::vector<int> &r,
-                  std::vector<int> &g,
-                  std::vector<int> &b) const
+                  std::vector<T> &r,
+                  std::vector<T> &g,
+                  std::vector<T> &b) const
 {
   int len = its.size();
   r.resize(len);
@@ -47,37 +55,19 @@ ColorMap::fillRGB(const std::vector<int> &its,
 }
 
 
-//unsigned int
-//ColorMap::red(unsigned int its, unsigned int maxits) const
-//{
-//  unsigned int ic;
-//  // check i/size() <= its/maxits <= (i+1)/size()
-//  for(unsigned int i=0; i<size()-1; ++i)
-//    if( i*maxits <= its*size() && (i+1)*maxits >= its*size() )
-//      ic = i;
-//  return 1;
-//}
-//
-//unsigned int
-//ColorMap::green(unsigned int its, unsigned int maxits) const
-//{
-//  return 1;
-//}
-//
-//unsigned int
-//ColorMap::blue(unsigned int its, unsigned int maxits) const
-//{
-//  return 1;
-//}
 
-double
-ColorMap::interpolate_linear(double a, double b, double t)
+template <typename T>
+T
+ColorMap<T>::interpolate_linear(T a, T b, T t)
 {
   return (a + (b-a)*t);
 }
 
-double
-ColorMap::interpolate_smoothstep(double a, double b, double t)
+
+
+template <typename T>
+T
+ColorMap<T>::interpolate_smoothstep(T a, T b, T t)
 {
   return (a + (b-a)*(6.*t*t*t*t*t - 15.*t*t*t*t + 10.*t*t*t));
 }
