@@ -3,8 +3,8 @@
 // Graham Harper
 // ---------------------------------------------------------------------
 
-#ifndef FRAC_colormap_h
-#define FRAC_colormap_h
+#ifndef GFRACTAL_color_map_h
+#define GFRACTAL_color_map_h
 #include <vector>
 #include <iostream>
 //#include <stdio.h>

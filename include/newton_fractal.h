@@ -3,8 +3,8 @@
 // Graham Harper
 // ---------------------------------------------------------------------
 
-#ifndef FRAC_newton_fractal_h
-#define FRAC_newton_fractal_h
+#ifndef GFRACTAL_newton_fractal_h
+#define GFRACTAL_newton_fractal_h
 
 #include <vector>
 #include <complex>

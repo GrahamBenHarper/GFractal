@@ -3,13 +3,10 @@
 // Graham Harper
 // ---------------------------------------------------------------------
 
-#ifndef FRAC_output_data_h
-#define FRAC_output_data_h
+#ifndef GFRACTAL_output_data_h
+#define GFRACTAL_output_data_h
 #include "newton_fractal.h"
 #include "julia_fractal.h"
-#include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
 
 class OutputData
 {

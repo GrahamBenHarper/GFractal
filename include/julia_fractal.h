@@ -3,8 +3,8 @@
 // Graham Harper
 // ---------------------------------------------------------------------
 
-#ifndef FRAC_julia_fractal_h
-#define FRAC_julia_fractal_h
+#ifndef GFRACTAL_julia_fractal_h
+#define GFRACTAL_julia_fractal_h
 
 #include <vector>
 #include <complex>

@@ -4,6 +4,9 @@
 // ---------------------------------------------------------------------
 
 #include "gfractal/include/output_data.h"
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 
 void OutputData::write_bitmap(NewtonFractal &frac, char* filename)
 {

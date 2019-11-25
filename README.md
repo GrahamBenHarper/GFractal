@@ -1,5 +1,5 @@
 # GFractal
-A C++ library for computing simple fractals with no outside dependencies.
+A C++ library for computing simple fractals with no outside dependencies. 
 
 ## Features
   1. Export fractal images as `.bmp`
@@ -20,7 +20,22 @@ make all
 Supposing that configuring and compiling goes well, you should now be able to find `libGFractal.a` in the `build/source/` directory to use with your own projects.
 
 ## Linking the compiled library
-Now suppose you'd like to write a file `main.cpp` which depends on this library. The best way to do this is to automate the project with CMake. In the folder containing `main.cpp`, create a `CMakeLists.txt` containing the following
+Now suppose you'd like to write a file `main.cpp` which depends on this library. There are a couple ways to do this. The simplest way is to set up a bash script and tell it where to include headers from and where the library is. For example, the script might look like this:
+
+
+```
+#!/bin/bash
+
+g++ -o main main.cpp -I ../../ -L ../../build/source -l GFractal
+if [[ $? -ne 0 ]] ; then
+  echo "Compilation failed! Aborting..."
+  exit 1
+fi
+
+./main
+```
+
+This assumes that the folder containing GFractal is located at `../../`, and the build directory is `../../build`. Another way to do so is with CMake. To automate this with CMake, in the folder containing `main.cpp`, create a `CMakeLists.txt` containing the following
 
 ```
 SET(TARGET "main")
@@ -39,13 +54,10 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.1.0)
 
 PROJECT(${TARGET})
 
-# Set the working directory to the GFractal/ directory
-# so the headers and library can be found in a consistent
-# fashion without changing the source code.
+# Set the working directory to the GFractal/ directory so the headers and library can be found in a consistent fashion without changing the source code.
 ADD_CUSTOM_TARGET(run
-    COMMAND g++ -o ${TARGET} ${TARGET}.cpp -L build/source -l GFractal
+    COMMAND g++ -o ${TARGET} ${TARGET_SRC} -I ${PATH_TO_GFRACTAL} -L ${PATH_TO_GFRACTAL}/build/source -l GFractal
     COMMAND ./${TARGET}
-    WORKING_DIRECTORY ${PATH_TO_GFRACTAL}
 )
 ```
 

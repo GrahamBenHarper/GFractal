@@ -3,8 +3,8 @@
 // Graham Harper
 // ---------------------------------------------------------------------
 
-#ifndef FRAC_CFunction_h
-#define FRAC_CFunction_h
+#ifndef GFRACTAL_complex_function_h
+#define GFRACTAL_complex_function_h
 
 #include <vector>
 #include <complex>
