@@ -12,22 +12,27 @@
 #include "gfractal/include/complex_function.h"
 
 // This code will compute 8 bitmap images of size 1024x768 from a Julia
-// set fractal sampled from points around the unit circle. It also times
-// the program using ctime, although another option may be to use time.
+// set fractal sampled from points around the unit circle starting at 1+0i
+// and moving counter-clockwise. It also times the program using ctime,
+// although another option may be to use time in the command line.
 
 int run_julia_fractal_loop()
 {
+  // avoid making this larger than 100 unless there is sufficient room
+  const unsigned int num_fractals = 150;
+
+  // start the clock
   clock_t totalStart = clock();
 
-  for(unsigned int i=0; i<8; ++i)
+  for(unsigned int i=0; i<num_fractals; ++i)
   {
     // Set up the fractal
     std::cout << "Defining the JuliaFractal" << std::endl;
 
     // Sample points from the unit circle
     const double pi = std::acos(-1);
-    const double x = std::cos(i*pi/4.);
-    const double y = std::sin(i*pi/4.);
+    const double x = std::cos(i*2.*pi/num_fractals);
+    const double y = std::sin(i*2.*pi/num_fractals);
 
     std::complex<double> c(x,y);
     JuliaFractal frac(c);
@@ -40,9 +45,10 @@ int run_julia_fractal_loop()
 
     // Output the fractal
     std::cout << "Outputting the JuliaFractal" << std::endl;
-    char filename[64] = "image00.bmp";
-    filename[6] = i%10 + '0';
-    filename[5] = i/10 + '0';
+    char filename[64] = "image000.bmp";
+    filename[7] = i%10        + '0';
+    filename[6] = (i%100)/10  + '0';
+    filename[5] = i/100       + '0';
     OutputData::write_bitmap(frac,filename);
 
     std::cout << "Done!" << std::endl;
