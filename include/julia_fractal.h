@@ -6,9 +6,8 @@
 #ifndef GFRACTAL_julia_fractal_h
 #define GFRACTAL_julia_fractal_h
 
-#include <vector>
 #include <complex>
-#include <iostream>
+#include "macros.h"
 
 /**
  *

@@ -5,8 +5,7 @@
 
 #ifndef GFRACTAL_color_map_h
 #define GFRACTAL_color_map_h
-#include <vector>
-#include <iostream>
+#include "macros.h"
 //#include <stdio.h>
 //#include <stdlib.h>
 

@@ -6,9 +6,8 @@
 #ifndef GFRACTAL_newton_fractal_h
 #define GFRACTAL_newton_fractal_h
 
-#include <vector>
 #include <complex>
-#include <iostream>
+#include "macros.h"
 #include "complex_function.h"
 
 /**

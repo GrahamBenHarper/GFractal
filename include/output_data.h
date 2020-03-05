@@ -5,6 +5,7 @@
 
 #ifndef GFRACTAL_output_data_h
 #define GFRACTAL_output_data_h
+#include "macros.h"
 #include "newton_fractal.h"
 #include "julia_fractal.h"
 

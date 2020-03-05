@@ -1,5 +1,7 @@
 # GFractal
-A C++ library for computing simple fractals with no outside dependencies. 
+A C++ library for computing simple fractals with no required dependencies. 
+However, it may be built upon Kokkos/kokkos to port some of the work to GPU. 
+The Kokkos feature is still an experimental WIP. 
 
 ## Features
   1. Export fractal images as `.bmp`

@@ -6,8 +6,8 @@
 #ifndef GFRACTAL_complex_function_h
 #define GFRACTAL_complex_function_h
 
-#include <vector>
 #include <complex>
+#include "macros.h"
 
 /**
  * This virtual class defines the structure for the implementations.

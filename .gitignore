@@ -1,0 +1,5 @@
+*.bmp
+*CMakeFiles/
+*CmakeCache.txt
+*Makefile
+*cmake_install.cmake
