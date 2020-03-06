@@ -3,7 +3,7 @@
 // Graham Harper
 // ---------------------------------------------------------------------
 
-#include "gfractal/include/julia_fractal.h"
+#include "gfractal/julia_fractal.h"
 
 ////////////////////
 // JuliaFractal

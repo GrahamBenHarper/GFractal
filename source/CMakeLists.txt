@@ -10,6 +10,3 @@ ADD_LIBRARY("${PROJECT_NAME}" STATIC
   newton_fractal.cpp
   output_data.cpp
 )
-
-# Set it up to include files in the intended fashion
-TARGET_INCLUDE_DIRECTORIES("${PROJECT_NAME}" PUBLIC ../../)

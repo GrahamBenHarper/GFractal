@@ -8,7 +8,7 @@
 //
 // ---------------------------------------------------------------------
 
-#include "gfractal/include/newton_fractal.h"
+#include "gfractal/newton_fractal.h"
 
 ////////////////////
 // NewtonFractal

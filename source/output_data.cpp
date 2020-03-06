@@ -3,7 +3,7 @@
 // Graham Harper
 // ---------------------------------------------------------------------
 
-#include "gfractal/include/output_data.h"
+#include "gfractal/output_data.h"
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>

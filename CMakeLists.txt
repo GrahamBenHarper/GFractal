@@ -22,6 +22,7 @@ MESSAGE(STATUS "Setting c++ standard: c++11")
 IF(DEFINED GFRACTAL_KOKKOS_DIR)
   MESSAGE(STATUS "Adding user-specified Kokkos directory: " ${GFRACTAL_KOKKOS_DIR})
   ADD_SUBDIRECTORY(${GFRACTAL_KOKKOS_DIR} Kokkos)
+  INCLUDE_DIRECTORIES("${GFRACTAL_KOKKOS_DIR}")
   ADD_DEFINITIONS(-DGFRACTAL_WITH_KOKKOS)
   MESSAGE(STATUS "Found Kokkos! Enabling GFRACTAL_WITH_KOKKOS...")
 ENDIF()
@@ -40,6 +41,10 @@ ELSE()
   MESSAGE(STATUS "No build type specified; setting the project to debug mode...")
   ADD_DEFINITIONS(-DGFRACTAL_DEBUG_MODE)
 ENDIF()
+
+
+# Set it up to include files in the intended fashion
+INCLUDE_DIRECTORIES("include")
 
 
 # Tell it where to look for the source code

@@ -3,7 +3,7 @@
 // Graham Harper
 // ---------------------------------------------------------------------
 
-#include "gfractal/include/complex_function.h"
+#include "gfractal/complex_function.h"
 
 ///////////////
 // CFunction 

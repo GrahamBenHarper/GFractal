@@ -2,7 +2,7 @@
 // GFractal Project
 // Graham Harper
 // ---------------------------------------------------------------------
-#include "gfractal/include/color_map.h"
+#include "gfractal/color_map.h"
 
 template <typename T>
 std::ostream& operator<<(std::ostream& out, const Color<T>& c)
